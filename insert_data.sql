@@ -1,6 +1,6 @@
 USE delivery_db;
 
--- Clientes via procedure (já insere também o endereço)
+-- Clientes com endereço pela procedure
 CALL create_client_with_address(
   'Alice Silva',
   '11999990000',
@@ -74,7 +74,7 @@ INSERT INTO delivery_persons (name, phone) VALUES
   ('Ana Paula',       '21966669999'),
   ('Lucas Mendes',    '31955556666');
 
--- Sanduíches
+-- Sanduiches
 INSERT INTO sandwiches (name, price) VALUES
   ('X-Burger',            15.50),
   ('X-Salada',            18.00),
@@ -82,7 +82,7 @@ INSERT INTO sandwiches (name, price) VALUES
   ('Vegetariano',         20.00),
   ('Frango com Catupiry', 22.50);
 
--- Pedidos (order_id gerado pelo trigger)
+-- Pedidos com order_id gerado pelo trigger
 INSERT INTO orders (client_id, delivery_person_id, status, order_date) VALUES
   (1, 1, '0', '2025-04-17 20:15:00'),
   (2, 2, '0', '2025-04-17 20:20:00'),
@@ -95,7 +95,7 @@ INSERT INTO orders (client_id, delivery_person_id, status, order_date) VALUES
 
 -- Itens dos pedidos
 INSERT INTO order_sandwiches (order_id, sandwich_id, quantity) VALUES
-  -- Alice Silva (20:15)
+  -- Alice Silva
   (
     (SELECT order_id FROM orders
      WHERE client_id = 1 AND order_date = '2025-04-17 20:15:00'),
@@ -107,14 +107,14 @@ INSERT INTO order_sandwiches (order_id, sandwich_id, quantity) VALUES
     3, 1
   ),
 
-  -- Bruno Souza (20:20)
+  -- Bruno Souza
   (
     (SELECT order_id FROM orders
      WHERE client_id = 2 AND order_date = '2025-04-17 20:20:00'),
     2, 3
   ),
 
-  -- Daniel Oliveira (21:00)
+  -- Daniel Oliveira
   (
     (SELECT order_id FROM orders
      WHERE client_id = 4 AND order_date = '2025-04-17 21:00:00'),
@@ -126,14 +126,14 @@ INSERT INTO order_sandwiches (order_id, sandwich_id, quantity) VALUES
     2, 2
   ),
 
-  -- Daniel Oliveira (21:05)
+  -- Daniel Oliveira
   (
     (SELECT order_id FROM orders
      WHERE client_id = 4 AND order_date = '2025-04-17 21:05:00'),
     3, 1
   ),
 
-  -- Eva Lima (21:10)
+  -- Eva Lima
   (
     (SELECT order_id FROM orders
      WHERE client_id = 5 AND order_date = '2025-04-17 21:10:00'),
@@ -145,21 +145,21 @@ INSERT INTO order_sandwiches (order_id, sandwich_id, quantity) VALUES
     3, 2
   ),
 
-  -- Felipe Gomes (21:15)
+  -- Felipe Gomes
   (
     (SELECT order_id FROM orders
      WHERE client_id = 6 AND order_date = '2025-04-17 21:15:00'),
     1, 3
   ),
 
-  -- Alice Silva extra (21:20)
+  -- Alice Silva extra
   (
     (SELECT order_id FROM orders
      WHERE client_id = 1 AND order_date = '2025-04-17 21:20:00'),
     3, 2
   ),
 
-  -- Bruno Souza extra (21:25)
+  -- Bruno Souza extra
   (
     (SELECT order_id FROM orders
      WHERE client_id = 2 AND order_date = '2025-04-17 21:25:00'),

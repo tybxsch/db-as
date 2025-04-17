@@ -23,7 +23,7 @@ CREATE TABLE sandwiches (
   price       DECIMAL(10,2) NOT NULL
 );
 
--- Tabela de endereços (multivalorado)
+-- Tabela de endereços
 CREATE TABLE addresses (
   address_id  INT           NOT NULL AUTO_INCREMENT PRIMARY KEY,
   client_id   INT           NOT NULL,
@@ -58,7 +58,7 @@ BEGIN
 END$$
 DELIMITER ;
 
--- Procedure para validar que um cliente tem endereço ao ser criado
+-- Procedure para criar um cliente com endereço
 DELIMITER $$
 CREATE PROCEDURE create_client_with_address(
   IN p_name       VARCHAR(100),
@@ -85,7 +85,7 @@ BEGIN
 END$$
 DELIMITER ;
 
--- Tabela associativa entre pedidos e sanduíches
+-- Tabela entre pedidos e sanduiches
 CREATE TABLE order_sandwiches (
   order_id    CHAR(36) NOT NULL,
   sandwich_id INT      NOT NULL,
